@@ -22,18 +22,21 @@ io.on('connection', (socket) => {
       socket.username = name;
 
       let user = {id: socket.id, username: socket.username};
+      
       users.push(user);
 
       console.log('USERS: ', users)
 
       io.emit('usersActivity', { user: name, event: 'connectado' });  
       io.emit('usersConnected', users);    
-
-
+      io.emit('message',messages);   
     });
     
     socket.on('sendTheMessage', (message) => {
-      io.emit('message', { msg: message.text, user: socket.username, createdAt: new Date() });    
+
+      let toSendMessage =  { msg: message.text, user: socket.username, createdAt: new Date() };
+      messages.push(toSendMessage)
+      io.emit('message',messages);   
     });
 
     socket.on('getConnected', () => {
