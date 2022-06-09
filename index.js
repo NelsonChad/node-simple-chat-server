@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     });
   });
 
-  app.use('/', (req, res) => {
+  app.get("/", (req, res) => {
     res.send("<html> <head>server Response</head><body><h1> This page was render direcly from the server <p>SEVER STARTED</p></h1></body></html>");
   });
 
